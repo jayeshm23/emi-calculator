@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="confirmform">
+        <h1>Bank Loan Application Form</h1><br>
+        <p>Dear
+            <b id="customerName"></b><br>Thank You for for your inquiry <br>
+            A four digit verification number has been send to your <b>Email: </b> <Span id="EmailId"></Span>
+        </p><br><br>
+        <label for="Otp"><b>Enter the OTP : </b></label><br>
+        <input type="text" name="Otp" id="OTP"><br><br>
+        <label for="validateOTP">
+            <h2 id="validateOTP"></h2>
+        </label>
+    </form>
+    <button  name="submit" id="btn" value="submit" onclick="Validate()">Submit</button>
+   
+    <script>
+        var fname = localStorage.getItem('fname');
+        var email = localStorage.getItem('email');
+        var c = 3;
+        var otp = parseInt(localStorage.getItem('Otp'));
+        var btn = document.getElementById('btn');
+        document.querySelector('#customerName').innerHTML = fname;
+        document.querySelector('#EmailId').innerHTML = email;
+
+       function Validate() {
+            var enterOtp = parseInt(document.querySelector('#OTP').value);
+            
+            if (enterOtp === otp) {
+                document.querySelector('#validateOTP').innerHTML = "Form Submitted";
+                btn.style.display='none';
+                alert("Form submited successfully")
+            }
+            else if(enterOtp === ""){
+                alert("please enter the OTP")
+            }
+            else if (c <= 1) {
+                alert("login failed")
+                document.querySelector('#validateOTP').innerHTML = 'You Enter wrong otp more than 3 times';
+                btn.style.display='none';
+
+            }
+            else {
+                alert("Enter Correct OTP")
+                c =c- 1;
+                document.querySelector('#validateOTP').innerHTML = `You have left ${c} Chances`;
+            }
+        
+
+        }
+
+    </script>
+</body>
+
+</html>

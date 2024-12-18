@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banl Loan Application Form</title>
+    <style>
+        *{
+            margin: 0px;
+            padding:0px ;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="loanApplication" action="calculator configuration.html">
+        <h1>Bank Loan Application Form</h1>
+        <p>
+            <span>*</span>Kindly enter the correct information in the Loan Application Form
+        </p><br><br>
+        <label for="fname"><b>Full Name : </b></label><br>
+        <input type="text" id="fname" required><br><br>
+        <label for="email"><b>Email : </b></label><br>
+        <input type="text" id="email" required><br><br>
+        <label for="pan"><b>PAN : </b></label><br>
+        <input type="text" id="pan" required><br><br>
+        <label for="amount"><b>Enter Loan Amount(Rs) : </b></label><br>
+        <input type="text" id="amount" required><br><br>
+        <label for="tenure"><b>Loan Tenure(Months) : </b></label><br>
+        <input type="text" id="tenure" required><br><br>
+
+        <input type="button" value="Calculate EMI" onclick="calculateEMI()"><br><br>
+        <label for=""><b>Estimated EMI :</b></label>
+        <label for="" id="estimatedEMI"></label><br><br>
+
+        
+        <input type="submit" name="submit" id="submit">
+        <input type="reset" name="reset" id="reset">
+    </form>
+
+    <script>
+        var form=document.querySelector('#loanApplication');
+        form.addEventListener('submit',function(){
+            var fname=document.querySelector('#fname').value;
+            var email=document.querySelector('#email').value;
+            var pan=document.querySelector('#pan').value;
+            var OTP=Math.round((Math.random()*10000)+1234);
+            var panReg=/^[A-Z]{5}[0-9]{4}[A-Z]{1}/;
+            var emailReg=/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
+
+            
+            if(fname==="" ||email===""||pan===""||amount===""||tenure==="")
+            {
+                alert("please fillout all details correct ")
+            }
+            else if(email.match(emailReg) && pan.match(panReg)){
+                alert("OTP : "+OTP);
+                localStorage.setItem("fname",fname);
+                localStorage.setItem("email",email);
+                localStorage.setItem("Otp",OTP);
+            }
+            else {
+                alert("Login faild Check Email and PAN Number")
+            }
+            
+            
+        })
+        function calculateEMI(){
+            var amount = document.querySelector('#amount').value;
+            var tenure=document.querySelector('#tenure').value;
+            var interest = (amount * (12 * 0.01))/tenure;
+            const total = ((amount/tenure) + interest);
+            document.querySelector('#estimatedEMI').innerHTML=total;
+        }
+    </script>
+</body>
+
+</html>
